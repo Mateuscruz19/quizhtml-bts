@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem você namoraria do BTS?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #4a0e78;
+            color: white;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+        }
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .question {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: #4a0e78;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        button {
+            margin: 5px 0;
+            padding: 10px;
+            border: none;
+            background-color: #9575cd;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #7e57c2;
+        }
+        #result {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            color: #4a0e78;
+        }
+        #result img {
+            max-width: 200px;
+            border-radius: 50%;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Quem você namoraria do BTS?</h1>
+    <div id="quiz"></div>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é sua atividade favorita?",
+                options: ["Dançar", "Cantar", "Compor músicas", "Fazer esportes"]
+            },
+            {
+                question: "Que tipo de personalidade você prefere?",
+                options: ["Carismático", "Tímido", "Engraçado", "Líder nato"]
+            },
+            {
+                question: "Qual estilo musical você mais gosta?",
+                options: ["Hip-hop", "R&B", "Pop", "Rock"]
+            },
+            {
+                question: "O que você valoriza mais em um relacionamento?",
+                options: ["Diversão", "Compreensão", "Paixão", "Lealdade"]
+            }
+        ];
+
+        const members = [
+            { name: "Jungkook", image: "./imagens/jungkook.png" },
+            { name: "Jimin", image: "./imagens/jimin.png" },
+            { name: "V", image: "./imagens/v-bts-foto-big-hit-music.jpg" },
+            { name: "RM", image: "./imagens/rm.jpg" },
+            { name: "Jin", image: "./imagens/jim.png" },
+            { name: "Suga", image: "./imagens/suga.jpg" },
+            { name: "J-Hope", image: "./imagens/jhole.jpg" }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+
+        function displayQuestion() {
+            const quizContainer = document.getElementById('quiz');
+            const questionData = questions[currentQuestion];
+            
+            let questionHtml = `
+                <div class="question">
+                    <h3>${questionData.question}</h3>
+                    <div class="options">
+                        ${questionData.options.map((option, index) => 
+                            `<button onclick="selectAnswer(${index})">${option}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+            
+            quizContainer.innerHTML = questionHtml;
+        }
+
+        function selectAnswer(answerIndex) {
+            answers.push(answerIndex);
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                displayQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const resultIndex = Math.floor(Math.random() * members.length);
+            const result = members[resultIndex];
+            document.getElementById('result').innerHTML = `
+                <p>Você namoraria ${result.name}! 💜</p>
+                <img src="${result.image}" alt="${result.name}" />
+            `;
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
